@@ -1,0 +1,408 @@
+<html>
+  <head>
+    <title>崩崩崩戏剧院</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+    <meta content="type/html" charset="utf8">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .request, .mainpage{
+            width: 600px;
+            margin: auto;
+            height: 100%;
+            background-color: #EDEDED;
+        }
+        #invitation, #refuse, #accept{
+            text-align: center;
+            font-size: 22px;
+        }
+        #refuse, #accept{
+            border: 1px solid #E8E8E8;
+            width: 300px;
+            margin: 10px auto;
+            padding: 10px;
+        }
+        #refuse{
+            background-color: #FFFFFF;
+        }
+        #accept{
+            background-color: #95EC69;
+        }
+        #invitation{
+            padding: 30% 10px 20px 10px
+        }
+        .headline{
+            border-bottom: 1px solid #E8E8E8;
+        }
+        #return, #menu{
+            display: inline-block;
+            width: auto;
+            height: 50px;
+        }
+        #groupname{
+            display: inline-block;
+            font-size: large;
+            position: relative;
+            left: -60px;
+            vertical-align: top;
+            padding-top: 15px;
+        }
+        #menu{
+            position: relative;
+            left: 490px;
+        }
+        #container{
+            overflow-y: auto;
+        }
+        .notice{
+            background-color: #C3BDBA;
+            border-radius: 5px;
+            text-align: center;
+            width: 300px;
+            margin: 30px auto;
+            padding: 2px;
+            clear: both;
+        }
+        .bubble{
+            margin: 10px;
+            clear: both;
+        }
+        .others{
+            float: left;
+        }
+        .mine{
+            float: right;
+        }
+        .avater{
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            vertical-align: top;
+        }
+        .others .avater{
+            margin-top: 5px;
+        }
+        .message{
+            display: inline-block;
+            max-width: 450px;
+        }
+        .dot{
+            box-sizing: border-box;
+            width: 14px;
+            height: 14px;
+            display: inline-block;
+            vertical-align: top;
+            transform: rotate(135deg);
+            -webkit-transform: rotate(135deg);
+            -moz-transform: rotate(135deg);
+            position: relative;
+        }
+        .others .dot{
+            background-color: #FFFFFF;
+            right: -12px;
+            margin-top: 50px;
+        }
+        .mine .dot{
+            background-color: #95EC69;
+            left: -12px;
+            margin-top: 25px;
+        }
+        .name{
+            color: #B0B0B0;
+            font-size: 20px;
+        }
+        .content{
+            border-radius: 5px;
+            font-size: 24px;
+            padding: 20px;
+        }
+        .others .content{
+            background-color: #FFFFFF;
+        }
+        .mine .content{
+            background-color: #95EC69;
+        }
+        .footline{
+            clear: both;
+            position: absolute;
+            bottom: 0px;
+            background-color: #F7F7F7;
+            width: 600px;
+            border-top: 1px solid #E8E8E8;
+        }
+        #sound, #keyboard, #emoji, #more{
+            display: inline-block;
+            width: auto;
+            height: 50px;
+            margin: 10px;
+        }
+        #emoji{
+            position: relative;
+            left: 390px;
+        }
+        #more{
+            position: relative;
+            left: 370px;
+        }
+        #textinput, #textchoose{
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            top: 10px;
+            left: -160px;
+            width: 370px;
+            height: 40px;
+            padding-top: 10px;
+            font-size: 24px;
+            text-align: center;
+            background-color: #FFFFFF;
+            border-radius: 2px;
+        }
+        
+        .alter{
+            box-sizing: border-box;
+            width: 600px;
+            position: absolute;
+            bottom: 75px;
+            border: 1px solid #E8E8E8;
+            background-color: #FFFFFF;
+        }
+        .alter div{
+            padding: 10px;
+            border: 1px dashed #E8E8E8;
+            text-align: center;
+        }
+        .endding{
+            width: 400px;
+            position: relative;
+            bottom: 500px;
+            margin: auto;
+            border: 1px solid #E8E8E8;
+            border-radius: 20px;
+            background-color: #FFFFFF;
+        }
+        #result{
+            padding: 20px 10px 40px 10px;
+            border-bottom: 1px dashed #E8E8E8;
+            font-size: 22px;
+        }
+        #confirm{
+            padding: 10px;
+            text-align: center;
+        }
+        .inactive{
+            display: none;
+        }
+    </style>
+    <script>
+        let dialog1 = [
+            [0, "", "", "会空中劈叉的清洁工加入了群聊"],
+            [1, "assets/rita.jpg", "绝色女仆", "贵安，舰长大人"],
+            [1, "assets/rita.jpg", "绝色女仆", "马上就是圣诞节了，今年主教大人有事，委托丽塔代为扮演圣诞老人给德丽莎学园长送礼物"],
+            [1, "assets/rita.jpg", "绝色女仆", "舰长觉得，什么样的礼物比较合适呢"],
+            [2, "assets/50.png", "", "诶，这个我也说不准哎"],
+            [2, "assets/50.png", "", "不过，我知道有个人可以给你建议"]
+        ];
+        
+        let dialog2 = [
+            [0, "", "", "樱花树下的祈愿加入了群聊"],
+            [2, "assets/50.png", "", "樱，我有个问题想问你可以吗？"],
+            [1, "assets/sakura.jpg", "樱花树下的祈愿", "别问问就是不可以"],
+            [3, "", "", "樱花树下的祈愿撤回了一条消息"],
+            [1, "assets/sakura.jpg", "樱花树下的祈愿", "啊？舰长有什么问题尽管说，在下一定知无不言"],
+            [2, "assets/50.png", "", "樱觉得送礼物的话送什么比较能表达心意"],
+            [1, "assets/sakura.jpg", "樱花树下的祈愿", "噫！舰长要送人礼物吗？"],
+            [2, "assets/50.png", "", "我不是我没有别瞎说"],
+            [1, "assets/sakura.jpg", "樱花树下的祈愿", "礼物的话，一般不需要很贵重，只要对方喜欢就行"],
+            [1, "assets/sakura.jpg", "樱花树下的祈愿", "如果亲手做的话，最能表达心意"],
+            [2, "assets/50.png", "", "比如？"],
+            [1, "assets/sakura.jpg", "樱花树下的祈愿", "比如热气腾腾的饭团！"],
+            [1, "assets/rita.jpg", "绝色女仆", "可是我只会做西式餐点，不会做饭团这种东方美食"],
+            [1, "assets/sakura.jpg", "樱花树下的祈愿", "是丽塔要送礼物吗，决定要做饭团的话在下可以教你，非常容易的"],
+            [1, "assets/rita.jpg", "绝色女仆", "如此就麻烦樱小姐了"],
+            [1, "assets/sakura.jpg", "樱花树下的祈愿", "不麻烦，乐意效劳"],
+            [4, "", "", "德丽莎很喜欢丽塔送的饭团，并因此挪用公款让食堂供应了半月的饭团，你的工资因此长期拖欠中QwQ"]
+        ];
+        
+        let dialog3 = [
+            [0, "", "", "合金装甲布狼牙加入了群聊"],
+            [2, "assets/50.png", "", "布洛妮娅，圣诞节快到了，你喜欢收到什么样的礼物？"],
+            [1, "assets/bronia.jpg", "合金装甲布狼牙", "[盯]舰长要给布洛妮娅准备礼物么"],
+            [1, "assets/bronia.jpg", "合金装甲布狼牙", "最近QS4的新游戏《锅姬计划》发布了PV，预计圣诞前上架，舰长你懂得"],
+            [2, "assets/50.png", "", "我懂我懂[擦汗]，那，布洛妮娅觉得，如果我给德丽莎也准备一份怎样？"],
+            [1, "assets/bronia.jpg", "合金装甲布狼牙", "德丽莎学园长和布洛妮娅一样喜欢吼姆"],
+            [1, "assets/bronia.jpg", "合金装甲布狼牙", "下周会发布限量版的吼姆抱枕，德丽莎学园长肯定会喜欢，嗯，布洛妮娅也一样喜欢[盯]"],
+            [2, "assets/50.png", "", "安啦安啦，会有的，都会有的，不过要帮我保密哦"],
+            [1, "assets/bronia.jpg", "合金装甲布狼牙", "明白[敬礼]"],
+            [0, "", "", "合金装甲布狼牙退出了群聊"],
+            [1, "assets/rita.jpg", "绝色女仆", "多谢舰长大人，限量版的吼姆抱枕丽塔会搞定的，2份，请舰长大人放心"],
+            [2, "assets/50.png", "", "辛苦丽塔了，预算不够的话就从我工资卡里预支吧"],
+            [4, "", "", "虽然多花费了半个月的工资给布洛妮娅买礼物，不过由于丽塔送的吼姆抱枕德丽莎很喜欢，一开心就给你加了一倍工资，恭喜恭喜"]
+        ];
+        
+        let dialog4 = [
+            [0, "", "", "一指破石加入了群聊"],
+            [1, "assets/fuhua.jpg", "一指破石", "？？？"],
+            [2, "assets/50.png", "", "符华，有个问题想请教一下"],
+            [1, "assets/fuhua.jpg", "一指破石", "舰长请说"],
+            [2, "assets/50.png", "", "在神州也过圣诞节吗，我有个朋友想送别人礼物不知道该送什么好"],
+            [1, "assets/fuhua.jpg", "一指破石", "无中生友，你说的这个朋友是不是你自己"],
+            [2, "assets/50.png", "", "这个真不是"],
+            [1, "assets/rita.jpg", "绝色女仆", "符华大人，其实是丽塔需要送德丽莎学园长礼物，才找舰长帮忙问的"],
+            [1, "assets/fuhua.jpg", "一指破石", "是丽塔么"],
+            [1, "assets/fuhua.jpg", "一指破石", "神州确实也过圣诞节的，不过神州的圣诞节没有送礼物的习俗"],
+            [1, "assets/rita.jpg", "绝色女仆", "这样啊"],
+            [1, "assets/fuhua.jpg", "一指破石", "不过送礼物的话，丽塔为学园长打扫房间的时候可以稍微留意下学园长的偏好，买一些相同主题的挂件，就很不错"],
+            [1, "assets/rita.jpg", "绝色女仆", "好的，感谢符华大人，丽塔会留意的"],
+            [0, "", "", "绝色女仆退出了群聊"],
+            [2, "assets/50.png", "", "符华，那神州过圣诞节的时候都怎么过的"],
+            [1, "assets/fuhua.jpg", "一指破石", "一般就放假，聚在一起，逛街，玩，什么的"],
+            [1, "assets/fuhua.jpg", "一指破石", "舰长要来吗，商业街59号，不见不散哦"],
+            [2, "assets/50.png", "", "[惊]不见不散！"],
+            [4, "", "", "德丽莎很喜欢丽塔送的吼姆挂件。而你在圣诞节和符华一起通宵打格斗游戏，被虐得体无完肤"]
+        ];
+        
+
+        function getBubble(type, avater, name, content){
+            let context = ""
+            if (type == 1){
+                context = "<div class=\"bubble others\"> \
+                        <img class=\"avater\" src=\"" + avater + "\"\/> \
+                        <div class=\"dot\"><\/div> \
+                        <div class=\"message\"> \
+                        <div class=\"name\">" + name + "<\/div> \
+                        <div class=\"content\">" + content + "<\/div> \
+                        <\/div><\/div>"
+            }
+            else if (type == 2){
+                context = "<div class=\"bubble mine\"> \
+                        <div class=\"message\"> \
+                        <div class=\"name\">" + name + "<\/div> \
+                        <div class=\"content\">" + content + "<\/div> \
+                        <\/div> \
+                        <div class=\"dot\"><\/div> \
+                        <img class=\"avater\" src=\"" + avater + "\"\/> \
+                        <\/div>"
+            }
+            return context
+        }
+        
+        function showDialog(dialog){
+            for ( let i = 0; i < dialog.length; i++){
+                (function(e){
+                    window.setTimeout(function(){
+                        if(dialog[e][0] == 0){
+                            document.getElementById("scroller").innerHTML += ("<div class=\"notice\">" + dialog[e][3] + "<\/div>");
+                        }
+                        else if (dialog[e][0] == 1 || dialog[e][0] == 2){
+                            document.getElementById("scroller").innerHTML += getBubble(dialog[e][0], dialog[e][1], dialog[e][2], dialog[e][3]);
+                        }
+                        else if (dialog[e][0] == 3){
+                            scroller = document.getElementById("scroller");
+                            scroller.removeChild(scroller.lastChild);
+                            scroller.innerHTML += ("<div class=\"notice\">" + dialog[e][3] + "<\/div>");
+                        }
+                        else if (dialog[e][0] == 4){
+                            document.getElementById("result").innerText = dialog[e][3];
+                            document.getElementsByClassName("endding")[0].className = "endding";
+                        }
+                        autoScroll();
+                        
+                        if (e == dialog.length -1){
+                            setTimeout(function(){
+                                document.getElementById("look").className = "footline inactive";
+                                document.getElementById("choose").className = "footline";
+                            }, 500);
+                        }
+                    }, 3000*(e));
+                })(i);
+                
+            }
+        }
+        
+        function autoScroll(){
+            container = document.getElementById("container");
+            container.scrollTop = container.scrollHeight - container.offsetHeight;
+        }
+        
+        function chooseDialog(num){
+            document.getElementsByClassName("alter")[0].className = "alter inactive";
+            document.getElementById("look").className = "footline";
+            document.getElementById("choose").className = "footline inactive";
+            
+            if (num == 0)
+                showDialog(dialog2);
+            else if (num == 1)
+                showDialog(dialog3);
+            else if (num == 2)
+                showDialog(dialog4);
+        }
+        
+        
+        window.onload = function() {
+            
+            document.getElementById("accept").onclick = function(){
+                document.getElementsByClassName("mainpage")[0].className = "mainpage";
+                document.getElementsByClassName("request")[0].className = "request inactive";
+                
+                document.getElementById("container").style.height = (window.innerHeight -
+                        document.getElementsByClassName("headline")[0].offsetHeight -
+                        document.getElementsByClassName("footline")[0].offsetHeight
+                        ) + "px";
+                showDialog(dialog1);
+            }
+            
+            document.getElementById("textchoose").onclick = function(){
+                alter = document.getElementsByClassName("alter")[0];
+                alter.className = "alter";
+            }
+            
+        }
+        
+
+    </script>
+  </head>
+  <body>
+    <div class="request">
+      <div id="invitation">绝色女仆邀请你加入群聊 休伯利安后勤处</div>
+      <div id="refuse">拒绝邀请</div>
+      <div id="accept">接受邀请</div>
+    </div> 
+    <div class="mainpage inactive">
+      <div class="headline">
+        <img id="return" src="assets/return.png"/>
+        <img id="menu" src="assets/menu.png"/>
+        <span id="groupname">休伯利安后勤处</span>
+      </div>
+      <div id="container">
+        <div id="scroller">
+          
+        </div>
+      </div>
+      <div class="footline" id="look">
+        <img id="sound" src="assets/sound.png"/>
+        <img id="emoji" src="assets/emoji.png"/>
+        <img id="more" src="assets/more.png"/>
+        <div id="textinput"></div>
+      </div>
+      <div class="footline inactive" id="choose">
+        <img id="keyboard" src="assets/keyboard.png"/>
+        <img id="emoji" src="assets/emoji.png"/>
+        <img id="more" src="assets/more.png"/>
+        <div id="textchoose">点击说话</div>
+      </div>
+      <div class="alter inactive"> 
+        <div class="choice" onclick="chooseDialog(0)">找八重樱帮忙</div>
+        <div class="choice" onclick="chooseDialog(1)">找布洛妮娅帮忙</div>
+        <div class="choice" onclick="chooseDialog(2)">找符华帮忙</div>
+      </div>
+      <div class="endding inactive">
+        <div id="result">这是结果描述</div>
+        <div id="confirm" onclick="location.reload()">返回尝试不同结局</div>
+      </div>
+    </div>
+  </body>
+</html>
